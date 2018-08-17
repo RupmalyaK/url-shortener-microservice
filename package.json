@@ -2,9 +2,9 @@
   "name": "shorturl",
   "version": "0.0.1",
   "description": "API project for freeCodeCamp",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "express": "^5.0.0-alpha.2",

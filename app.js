@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
 const dns = require("dns");
 const Uri = require("./models/Uri");
+const urlParse = require("url").parse;
 
 mongoose.Promise = global.Promise; 
 
@@ -49,7 +50,7 @@ Uri.find({}) .exec()
 app.post("/api/shorturl/new" , (req, res) => {
   let url = req.body.url.split("www.").pop(); //striping out wwww. part of the url if present to avoid duplication 
   url = url.split("//").pop(); //stiping out http:// part of the url if present to avoid duplication
-  dns.lookup(url.split("/").shift() , err => {
+  dns.lookup(urlParse("http://" + url).hostname , err => {
   if(err)
   { 
     res.status(403).json({"error":"invalid URL"});
@@ -127,6 +128,6 @@ function isNumeric (str)
 
 
 
-//dns.lookup("http://reddit.com/red".split("/").shift(),(err) =>{ if(err){console.log(err); return;}console.log("site found")});
+
 
 
